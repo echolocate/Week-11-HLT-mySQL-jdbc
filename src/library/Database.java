@@ -1,5 +1,6 @@
 package library;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -9,22 +10,25 @@ import java.sql.Statement;
 
 public class Database {
 	public Connection conn;
-	public Statement stmt;
-	public ResultSet rs;
+	public Statement stmt = null;
+	public ResultSet rs = null;
 	public ResultSetMetaData rsmd;
 
-	//Constructor Method
+	//Constructor 
 	public Database(String driver, String database, String username, String password) throws ClassNotFoundException, SQLException {		
 			Class.forName(driver);		
 			this.conn = DriverManager.getConnection(database, username, password);
 		
 	}
-		public void query(String query) throws SQLException {
+	
+	// Query method
+	public void query(String query) throws SQLException {
 		this.stmt = this.conn.createStatement();
 		this.rs = this.stmt.executeQuery(query);
 		this.rsmd = this.rs.getMetaData();
 	}
 	
+	// Output method
 	public void printResults() throws SQLException {
 		int totalFields = this.rsmd.getColumnCount();
 		while (rs.next()) {
