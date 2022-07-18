@@ -40,5 +40,25 @@ public class Database {
 			System.out.println();
 		}
 	}
-	}
+	
+	// Close connections
+	public void closeAll() {
+			   // close JDBC objects
+			   try {
+			      if(rs!=null) rs.close();
+			   } catch (SQLException se) {
+			      se.printStackTrace();
+			   }
+			   try {
+			      if(stmt!=null) stmt.close();
+			   } catch (SQLException se) {
+			      se.printStackTrace();
+			   }
+			   try {
+			      if(conn!=null) conn.close();
+			   } catch (SQLException se) {
+			      se.printStackTrace();
+			   }
+	}	
+}
 

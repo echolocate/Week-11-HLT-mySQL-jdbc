@@ -12,8 +12,7 @@ public class Library {
 		int choice;
 
 		try {
-			Database db = new Database("com.mysql.cj.jdbc.Driver", "jdbc:mysql://localhost:3306/library", "root",
-					"root");
+			Database db = new Database("com.mysql.cj.jdbc.Driver", "jdbc:mysql://localhost:3306/library", "root", "root");
 
 		do {
 			System.out.println("-------------------Library Application-------------------");
@@ -41,18 +40,48 @@ public class Library {
 					break;
 				}
 				case 3: {
-					db.query("SELECT * FROM loaned;");
+					db.query("SELECT u.first_name, u.last_name, \"\r\n"
+							+ "							\"FROM loaned JOIN users u ON u.user_id=loaned.u_id JOIN books b ON b.isbn=loaned.b_id;");
 					db.printResults();
 					break;
 				}
+				case 4: {
+					db.query("SELECT b.title, b.author "
+							+ "FROM loaned JOIN users u ON u.user_id=loaned.u_id JOIN books b ON b.isbn=loaned.b_id;");
+					db.printResults();
+					break;
+				}
+				case 5: {
+					db.query("SELECT u.first_name, u.last_name, b.title, b.author\r\n"
+							+ "				FROM loaned JOIN users u ON u.user_id=loaned.u_id JOIN books b ON b.isbn=loaned.b_id;");
+					db.printResults();
+					break;
+				}
+				case 6: {
+					db.query("SELECT u.first_name, u.last_name, b.title, b.author, loaned.due_date\r\n"
+							+ "FROM loaned JOIN users u ON u.user_id=loaned.u_id JOIN books b ON b.isbn=loaned.b_id WHERE due_date<CURDATE()");
+					db.printResults();
+					break;
+				}
+				case 7: {
+					Scanner s = new Scanner(System.in);
+					System.out.println("Enter Query:  ");
+					String searchTerm = s.nextLine();
+					// s.close();
+					db.query(searchTerm);
+					db.printResults();
+					break;
+				}				
 			}
 		} while (choice != 8);
-
+			db.closeAll();
+			System.out.println("Connection to database closed.");
 			sc.close();
 		}
 
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+
 	}
 }
