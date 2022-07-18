@@ -33,7 +33,7 @@ public class Database {
 		int totalFields = this.rsmd.getColumnCount();
 		while (rs.next()) {
 			for (int i = 1; i <= totalFields; i++) {
-				if (i > 1) System.out.print(",");
+				if (i > 1) System.out.print(", ");
 				String fieldValue = rs.getString(i);
 				System.out.print(fieldValue);
 			}
