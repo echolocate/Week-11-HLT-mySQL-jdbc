@@ -40,8 +40,8 @@ public class Library {
 					break;
 				}
 				case 3: {
-					db.query("SELECT u.first_name, u.last_name, \"\r\n"
-							+ "							\"FROM loaned JOIN users u ON u.user_id=loaned.u_id JOIN books b ON b.isbn=loaned.b_id;");
+					db.query("SELECT u.first_name, u.last_name "
+							+ "FROM loaned JOIN users u ON u.user_id=loaned.u_id JOIN books b ON b.isbn=loaned.b_id;");
 					db.printResults();
 					break;
 				}
@@ -52,13 +52,13 @@ public class Library {
 					break;
 				}
 				case 5: {
-					db.query("SELECT u.first_name, u.last_name, b.title, b.author\r\n"
-							+ "				FROM loaned JOIN users u ON u.user_id=loaned.u_id JOIN books b ON b.isbn=loaned.b_id;");
+					db.query("SELECT u.first_name, u.last_name, b.title, b.author "
+							+ "FROM loaned JOIN users u ON u.user_id=loaned.u_id JOIN books b ON b.isbn=loaned.b_id;");
 					db.printResults();
 					break;
 				}
 				case 6: {
-					db.query("SELECT u.first_name, u.last_name, b.title, b.author, loaned.due_date\r\n"
+					db.query("SELECT u.first_name, u.last_name, b.title, b.author, loaned.due_date "
 							+ "FROM loaned JOIN users u ON u.user_id=loaned.u_id JOIN books b ON b.isbn=loaned.b_id WHERE due_date<CURDATE()");
 					db.printResults();
 					break;
